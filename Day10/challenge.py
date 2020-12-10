@@ -23,11 +23,31 @@ def part_two(adapters):
     return memo[-1]
 
 
+def part_two_space_optimized(adapters):
+    if adapters[0] > 3:
+        return 0
+
+    memo = [0, 0, 0, 0]
+
+    for i in range(len(adapters)):
+        memo[i % 4] = sum(
+            memo[j % 4]
+            for j in range(max(0, i - 3), i)
+            if adapters[i] - adapters[j] <= 3
+        )
+        if adapters[i] <= 3:
+            memo[i % 4] += 1
+
+    return max(memo)
+
+
 def main():
     with open('input.txt', 'r') as f:
         lines = sorted([int(line) for line in f])
     print(part_one(lines))
     print(part_two(lines))
+    print(part_two_space_optimized(lines))
+
     return
 
 
