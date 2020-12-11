@@ -16,7 +16,7 @@ def part_two(adapters):
     for i in range(len(adapters)):
         memo[i] += sum(
             memo[j]
-            for j in range(min(0, i - 3), i)
+            for j in range(max(0, i - 3), i)
             if adapters[i] - adapters[j] <= 3
         )
 
@@ -24,9 +24,6 @@ def part_two(adapters):
 
 
 def part_two_space_optimized(adapters):
-    if adapters[0] > 3:
-        return 0
-
     memo = [0, 0, 0, 0]
 
     for i in range(len(adapters)):
