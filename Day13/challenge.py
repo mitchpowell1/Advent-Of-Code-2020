@@ -36,6 +36,10 @@ def part_two_brute_force(bus_ids):
     return i + 1
 
 
+def lcm(a, b):
+    return (a * b) // math.gcd(a, b)
+
+
 def p2_better(bus_ids):
     buses = [1 if b == 'x' else int(b) for b in bus_ids]
     time = 0
@@ -43,7 +47,7 @@ def p2_better(bus_ids):
     for bus in buses:
         while time % int(bus) != 0:
             time += p
-        p *= bus
+        p = lcm(p, bus)
         time += 1
     return time - len(buses)
 
